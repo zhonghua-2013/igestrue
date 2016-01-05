@@ -1,66 +1,4 @@
-/*
- * 智能版手势操作封装
- * @author wangzhonghua 
- */
-/**********************************************************************************
- * USAGE EXAMPLES:
- **********************************************************************************
- *  new $.iGesture({
- * 		container:'.test_container',		//string|$obj   must
- * 		selector:'.test_selector',          //string|$obj   must
- * 		wrap:$('.test_wrap'),				//optional  可选的最外父容器，目的是可支持多滚动区域
- * 		zoomed:true,                       //是否绑定缩放手势事件，默认true
- * 		hScroll: false,						//是否指定水平滚动
- *      vScroll: false,						//是否指定垂直滚动
- *		momentum:true,						//惯性
- *		bounce:true,						//回弹
- *		speedScale:1,						//阻尼系数
- * 		vAutoScrollOutIn:true,				//是否允许竖直方向上局部区域与外部区域自动滚动切换
- * 		onTouchStart:function(e){
- * 				...
- * 		},
- * 		...
- * });
- * getData(key);                            //return data of key
- * setData(key,value);                      //set data.key=value 
- * getBaseData(key);                        //return base of key
- * setBaseData(key,value);               	//set base.key=value 
- * enableTouch()                            //enable touch
- * disableTouch()                           //disable touch
- * enableGesture()                          //enable gesture
- * disableGesture()                         //disable gesture
- * resetData($scroller)                     // reset dom state
- * render($scroller,scale,left,top)         //render dom base on scale、left and top
- * fixPosition($scroller)                   //fix dom position 
- **********************************************************************************
- */
-;(function($){ 
-	var EV_TOUCHSTART ='touchstart',
-        EV_TOUCHMOVE = 'touchmove',
-        EV_TOUCHEND = 'touchend',
-        EV_TOUCHCANCEL='touchcancel',
-        EV_GESTURESTART ='gesturestart',
-        EV_GESTURECHANGE = 'gesturechange',
-        EV_GESTUREEND = 'gestureend',
-        EV_TRANSEND = 'webkitTransitionEnd';
-
-	var	m = Math,
-		support3d = ('WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix()),
-		nextFrame = (function() {
-            return window.requestAnimationFrame ||
-                window.webkitRequestAnimationFrame ||
-                function(callback) { return setTimeout(callback, 17); };
-        })(),
-		cancelFrame = (function () {
-            return window.cancelRequestAnimationFrame ||
-                window.webkitCancelAnimationFrame ||
-                clearTimeout;
-        })();
-    var momentumTime = 300, //惯性的最大触发时间间隔
-    	snapTime = 250,//snap的最大触发时间间隔
-    	snapTriggerRatio = 0.1,//snap的最小触发距离
-    	doubleClickTime = 350;//避免连击的最小时间间隔
-    /**
+/**
      * @author wangzhonghua
      * @constructor
      * @alias $.iGesture
@@ -112,7 +50,46 @@
      *      vAutoScrollOutIn:true,				//是否允许竖直方向上局部区域与外部区域自动滚动切换
      *      onTouchStart:function(e){}
      * })
+     * getData(key);                            //return data of key
+	 * setData(key,value);                      //set data.key=value 
+	 * getBaseData(key);                        //return base of key
+	 * setBaseData(key,value);               	//set base.key=value 
+	 * enableTouch()                            //enable touch
+	 * disableTouch()                           //disable touch
+	 * enableGesture()                          //enable gesture
+	 * disableGesture()                         //disable gesture
+	 * resetData($scroller)                     // reset dom state
+	 * render($scroller,scale,left,top)         //render dom base on scale、left and top
+	 * fixPosition($scroller)                   //fix dom position 
      */
+    
+;(function($){ 
+	var EV_TOUCHSTART ='touchstart',
+        EV_TOUCHMOVE = 'touchmove',
+        EV_TOUCHEND = 'touchend',
+        EV_TOUCHCANCEL='touchcancel',
+        EV_GESTURESTART ='gesturestart',
+        EV_GESTURECHANGE = 'gesturechange',
+        EV_GESTUREEND = 'gestureend',
+        EV_TRANSEND = 'webkitTransitionEnd';
+
+	var	m = Math,
+		support3d = ('WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix()),
+		nextFrame = (function() {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                function(callback) { return setTimeout(callback, 17); };
+        })(),
+		cancelFrame = (function () {
+            return window.cancelRequestAnimationFrame ||
+                window.webkitCancelAnimationFrame ||
+                clearTimeout;
+        })();
+    var momentumTime = 300, //惯性的最大触发时间间隔
+    	snapTime = 250,//snap的最大触发时间间隔
+    	snapTriggerRatio = 0.1,//snap的最小触发距离
+    	doubleClickTime = 350;//避免连击的最小时间间隔
+    
 	var iGesture = function(options){			
 		this._options = {
 			container: null,
