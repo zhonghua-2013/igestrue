@@ -51,16 +51,16 @@
      *      onTouchStart:function(e){}
      * })
      * getData(key);                            //return data of key
-	 * setData(key,value);                      //set data.key=value 
-	 * getBaseData(key);                        //return base of key
-	 * setBaseData(key,value);               	//set base.key=value 
-	 * enableTouch()                            //enable touch
-	 * disableTouch()                           //disable touch
-	 * enableGesture()                          //enable gesture
-	 * disableGesture()                         //disable gesture
-	 * resetData($scroller)                     // reset dom state
-	 * render($scroller,scale,left,top)         //render dom base on scale、left and top
-	 * fixPosition($scroller)                   //fix dom position 
+     * setData(key,value);                      //set data.key=value 
+     * getBaseData(key);                        //return base of key
+     * setBaseData(key,value);               	//set base.key=value 
+     * enableTouch()                            //enable touch
+     * disableTouch()                           //disable touch
+     * enableGesture()                          //enable gesture
+     * disableGesture()                         //disable gesture
+     * resetData($scroller)                     // reset dom state
+     * render($scroller,scale,left,top)         //render dom base on scale、left and top
+     * fixPosition($scroller)                   //fix dom position 
      */
     
 ;(function($){ 
